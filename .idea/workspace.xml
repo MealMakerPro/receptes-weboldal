@@ -6,18 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0e19b481-e9ae-47fc-8177-8b8101b02ccc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/recipes.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/recipes.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/shopping_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/shopping_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/what_meal.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/what_meal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javascript/registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript/registration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +78,7 @@
       <workItem from="1736515729074" duration="4374000" />
       <workItem from="1736771298674" duration="163000" />
       <workItem from="1736771492620" duration="6331000" />
-      <workItem from="1736842428255" duration="2023000" />
+      <workItem from="1736842428255" duration="3012000" />
     </task>
     <servers />
   </component>
