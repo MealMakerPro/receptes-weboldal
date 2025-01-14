@@ -5,22 +5,37 @@
     <title>Regisztráció</title>
     <link rel="stylesheet" href="../css/all_pages.css">
     <link rel="icon" href="../img/logo.PNG">
+    <script src="main.js"></script>
 </head>
 <body>
     <header>
         <img src="../img/name.png" alt="header img" />
         <nav>
-            <a href="homepage.html">Kezdőlap</a>
-            <a href="receipes.html">Receptek</a>
-            <a href="what_meal.html">Mit főzzek?</a>
-            <a href="shopping_list.html">Bevásárlólista</a>
-            <a href="blog.html">Blog</a>
-            <a href="login.html">Bejelentkezés</a>
+            <a href="../html/homepage.html">Kezdőlap</a>
+            <a href="../html/receipes.html">Receptek</a>
+            <a href="../html/what_meal.html">Mit főzzek?</a>
+            <a href="../html/shopping_list.html">Bevásárlólista</a>
+            <a href="../html/blog.html">Blog</a>
+            <a href="../html/login.html">Bejelentkezés</a>
             <a href="registration.html">Regisztráció</a>
         </nav>
     </header>
     <main>
+        <form id="registrationForm">
+            <label for="name">Név:</label>
+            <input type="text" id="name" name="name" required><br><br>
 
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="username">Felhasználónév:</label>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="password">Jelszó:</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <input type="submit" value="Küldés">
+        </form>
     </main>
     <footer>
         <p>Ínycsiklandó receptek, egyszerűen, otthonra!</p>
