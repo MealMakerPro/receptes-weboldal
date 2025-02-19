@@ -1,22 +1,23 @@
-import { auth, database } from "./firebase-config.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { ref, set } from "firebase/database";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
+import { auth, database } from "./firebase-config";
 
 export function handleRegistration(name, email, username, password) {
     createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
             const user = userCredential.user;
-
-            return set(ref(database, "users/" + user.uid), {
+            const userData = {
+                uid: user.uid,
+                email: user.email,
+                name: name,
                 username: username,
-                email: email,
-            });
-        })
-        .then(() => {
-            alert("Sikeres regisztráció!");
+                createdAt: Timestamp.now(),
+            };
+            await setDoc(doc(database, "users", user.uid), userData);
+            console.log("Felhasználó regisztrálva: " + user);
         })
         .catch((error) => {
-            console.error("Hiba: ", error);
+            console.error("Regisztrációs hiba: ", error);
             alert(error.message);
         });
 }

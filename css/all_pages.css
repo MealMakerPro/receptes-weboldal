@@ -17,7 +17,7 @@ header {
     box-sizing: border-box;
 }
 
-header img {
+#headerImg {
     max-height: 120px;
     padding-left: 100px;
 }
