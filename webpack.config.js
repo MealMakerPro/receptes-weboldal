@@ -6,7 +6,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'main.js',
-        clean: true,
     },
     module: {
         rules: [
@@ -15,8 +14,11 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.(png|jpe?g|gif|svg)$/,
-                type: "asset/resource",
+                test: /\.(png|PNG|jpe?g|gif|svg)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'img/[name][hash][ext][query]',
+                },
             },
         ],
     },
@@ -26,20 +28,20 @@ module.exports = {
             filename: 'index.html',
         }),
         new htmlWebpackPlugin({
-            template: './html/registration.html',
-            filename: 'registration.html',
+            template: './html/blog.html',
+            filename: 'blog.html',
         }),
         new htmlWebpackPlugin({
             template: './html/login.html',
             filename: 'login.html',
         }),
         new htmlWebpackPlugin({
-            template: './html/blog.html',
-            filename: 'blog.html',
-        }),
-        new htmlWebpackPlugin({
             template: './html/recipes.html',
             filename: 'recipes.html',
+        }),
+        new htmlWebpackPlugin({
+            template: './html/registration.html',
+            filename: 'registration.html',
         }),
         new htmlWebpackPlugin({
             template: './html/shopping_list.html',
@@ -48,13 +50,14 @@ module.exports = {
         new htmlWebpackPlugin({
             template: './html/what_meal.html',
             filename: 'what_meal.html',
-        })
+        }),
     ],
     devServer: {
         static: {
-            directory: path.resolve(__dirname, 'dist'),
+            directory: path.join(__dirname, 'dist'),
         },
-        open: true,
+        compress: true,
+        port: 8080,
     },
     devtool: 'eval-source-map',
     mode: 'development',
