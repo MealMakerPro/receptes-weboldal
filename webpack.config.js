@@ -26,30 +26,37 @@ module.exports = {
         new htmlWebpackPlugin({
             template: './html/index.html',
             filename: 'index.html',
+            favicon: "./img/logo.PNG",
         }),
         new htmlWebpackPlugin({
             template: './html/blog.html',
             filename: 'blog.html',
+            favicon: "./img/logo.PNG",
         }),
         new htmlWebpackPlugin({
             template: './html/login.html',
             filename: 'login.html',
+            favicon: "./img/logo.PNG",
         }),
         new htmlWebpackPlugin({
             template: './html/recipes.html',
             filename: 'recipes.html',
+            favicon: "./img/logo.PNG",
         }),
         new htmlWebpackPlugin({
             template: './html/registration.html',
             filename: 'registration.html',
+            favicon: "./img/logo.PNG",
         }),
         new htmlWebpackPlugin({
             template: './html/shopping_list.html',
             filename: 'shopping_list.html',
+            favicon: "./img/logo.PNG",
         }),
         new htmlWebpackPlugin({
             template: './html/what_meal.html',
             filename: 'what_meal.html',
+            favicon: "./img/logo.PNG",
         }),
     ],
     devServer: {

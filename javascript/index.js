@@ -1,20 +1,9 @@
 import { handleRegistration } from "./registration";
 import {handleLogIn} from "./login";
 import "../css/all_pages.css";
-import headerImg from '../img/name.png';
-import logoImg from '../img/logo.png';
+import header from "../img/name.png";
 
-const imgElements = [
-    {src: headerImg, id: headerImg},
-    {src: logoImg, id: logoImg},
-];
-
-imgElements.forEach(image => {
-    const element = document.getElementById(image.id);
-    const imgElement = document.createElement('img');
-    imgElement.src = image.src;
-    element.appendChild(imgElement);
-});
+document.getElementById('headerImg').src = header;
 
 document.addEventListener("DOMContentLoaded", handleRegistration);
 document.addEventListener("DOMContentLoaded", handleLogIn);
