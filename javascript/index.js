@@ -1,5 +1,5 @@
 import { handleRegistration } from "./registration";
-import {handleLogIn} from "./login";
+import {handleLogIn, updateMenu} from "./login";
 import "../css/all_pages.css";
 import header from "../img/name.png";
 
@@ -34,5 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
             handleLogIn(email, password);
         });
     }
+
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    updateMenu(isLoggedIn);
 });
 
