@@ -1,5 +1,9 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
+if (window.location.pathname.includes("login")) {
+    import("../css/login.css");
+}
+
 const auth = getAuth();
 
 export function handleLogIn(email, password) {
@@ -41,5 +45,17 @@ export function updateMenu(isLoggedIn) {
         menuLogout.style.display = "none";
         menuLogin.style.display = "inline-block";
         menuRegistration.style.display = "inline-block";
+    }
+
+    if (menuLogout) {
+        menuLogout.addEventListener("click", () => {
+            auth.signOut().then(() => {
+                console.log("Sikeres kijelentkezés");
+                updateMenu(false);
+                localStorage.removeItem("isLoggedIn");
+            }).catch((error) => {
+                console.error("Hiba a kijelentkezéskor!", error);
+            });
+        });
     }
 }

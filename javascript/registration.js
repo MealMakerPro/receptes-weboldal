@@ -2,6 +2,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { auth, database } from "./firebase-config";
 
+if (window.location.pathname.includes("registration.html")) {
+    import("../css/registration.css");
+}
+
 export function handleRegistration(name, email, username, password) {
     createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
