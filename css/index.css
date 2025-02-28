@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Century Gothic, serif;
+}
+
+main {
+    width: 80%;
+    margin: auto auto;
+    padding: 20px;
+    height: auto;
+}
+
+footer {
+    margin-top: auto;
+}
+
+h2 {
+    padding-left: 20px;
+}
+
+p {
+    padding-left: 20px;
+}

@@ -3,6 +3,10 @@ import {handleLogIn, updateMenu} from "./login";
 import "../css/all_pages.css";
 import header from "../img/name.png";
 
+if (window.location.pathname.includes("index.html")) {
+    import("../css/index.css");
+}
+
 document.getElementById('headerImg').src = header;
 
 document.addEventListener("DOMContentLoaded", () => {
