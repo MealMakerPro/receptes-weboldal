@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Receptfeltöltés</title>
+</head>
+<body>
+<header>
+    <img id="headerImg" src="" alt="headerImg">
+    <nav>
+        <a id="menu-home" href="index.html">Kezdőlap</a>
+        <a id="menu-recipes" href="recipes.html">Receptek</a>
+        <a id="menu-whatmeal" style="display: none" href="what_meal.html">Mit főzzek?</a>
+        <a id="menu-shoppinglist" style="display: none" href="shopping_list.html">Bevásárlólista</a>
+        <a id="menu-blog" style="display: none" href="blog.html">Blog</a>
+        <a id="menu-login" href="login.html">Bejelentkezés</a>
+        <a id="menu-registration" href="registration.html">Regisztráció</a>
+        <a id="menu-profile" style="display: none" href="profile.html">Profil</a>
+        <a id="menu-logout" style="display: none" href="#">Kijelentkezés</a>
+    </nav>
+</header>
+<main>
+    <h1>Recept Feltöltés</h1>
+    <form id="recipeForm">
+        <label for="recipeName">Recept neve:</label>
+        <input type="text" id="recipeName" required><br><br>
+        <div id="ingredients">
+            <div class="ingredient">
+                <input type="number" class="amount" placeholder="Mennyiség" required>
+                <input type="text" class="unit" placeholder="Mértékegység" required>
+                <input type="text" class="ingredientName" placeholder="Hozzávaló neve" required>
+            </div>
+        </div>
+        <button type="button" id="addIngredientBtn">Hozzávaló hozzáadása</button><br><br>
+
+        <label for="instructions">Elkészítés:</label><br>
+        <textarea id="instructions" rows="5" required></textarea><br><br>
+
+        <label for="cookingTime">Elkészítési idő:</label>
+        <input type="text" id="cookingTime" required><br><br>
+
+        <button type="submit">Recept mentése</button>
+    </form>
+</main>
+<footer>
+    <p>Ínycsiklandó receptek, egyszerűen, otthonra!</p>
+</footer>
+</body>
+</html>

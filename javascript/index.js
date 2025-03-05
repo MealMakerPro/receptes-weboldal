@@ -1,13 +1,19 @@
 import { handleRegistration } from "./registration";
 import {handleLogIn, updateMenu} from "./login";
+import { loadUserProfile } from "./profile";
 import "../css/all_pages.css";
 import header from "../img/name.png";
+import {addIngredient, submitRecipe} from "./recipeUpload";
 
-if (window.location.pathname.includes("index.html")) {
+document.getElementById('headerImg').src = header;
+
+if (document.getElementById('indexPage')) {
     import("../css/index.css");
 }
 
-document.getElementById('headerImg').src = header;
+if (document.body.id === "profilePage") {
+    loadUserProfile();
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("registrationForm");
@@ -41,5 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     updateMenu(isLoggedIn);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("recipeForm");
+    const addIngredientBtn = document.getElementById("addIngredientBtn");
+    addIngredientBtn.addEventListener("click", addIngredient);
+
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            submitRecipe(e);
+        });
+    }
 });
 
