@@ -13,6 +13,23 @@ main {
     height: auto;
 }
 
+#number {
+    font-family: Century Gothic, serif;
+    padding: 10px;
+}
+
+#donationAmount {
+    font-family: Century Gothic, serif;
+    padding: 10px;
+}
+
+#donationButton {
+    padding: 0 20px;
+    background-color: white;
+    border-radius: 10px;
+    font-family: Century Gothic, serif;
+}
+
 footer {
     margin-top: auto;
 }

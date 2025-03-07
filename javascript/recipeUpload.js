@@ -1,6 +1,7 @@
-import { database } from './firebase-config';
+import {database} from './firebase-config';
 import "../css/recipeUpload.css";
 import {doc, setDoc} from "firebase/firestore";
+import {getAuth} from "firebase/auth";
 
 export function addIngredient() {
     const ingredientsDiv = document.getElementById('ingredients');
@@ -16,13 +17,20 @@ export function addIngredient() {
 
 export async function submitRecipe(recipeName, instructions, cookingTime, ingredients) {
     try {
+        const auth = getAuth();
+        const user = auth.currentUser;
+
         const recipeRef = doc(database, "recipes", recipeName.toLowerCase().replace(/\s+/g, "_"));
         const recipeData = {
             recipeName: recipeName,
             instructions: instructions,
             cookingTime: cookingTime,
             ingredients: ingredients,
+            createdAt: new Date().toISOString(),
+            userId: user.uid,
+            userEmail: user.email,
         };
+
         await setDoc(recipeRef, recipeData);
         console.log("Recept sikeresen mentve!");
         document.getElementById('recipeForm').reset();

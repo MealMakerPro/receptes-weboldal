@@ -56,6 +56,9 @@ export function updateMenu(isLoggedIn) {
             }).catch((error) => {
                 console.error("Hiba a kijelentkezéskor!", error);
             });
+            setTimeout(function () {
+                window.location.href = "../index.html";
+            }, 500);
         });
     }
 }

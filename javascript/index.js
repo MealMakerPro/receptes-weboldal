@@ -4,6 +4,7 @@ import { loadUserProfile } from "./profile";
 import "../css/all_pages.css";
 import header from "../img/name.png";
 import {addIngredient, submitRecipe} from "./recipeUpload";
+import {submitDonation} from "./donation";
 
 document.getElementById('headerImg').src = header;
 
@@ -16,6 +17,13 @@ if (document.body.id === "profilePage") {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    registration();
+    login();
+    addRecipe();
+    donation();
+});
+
+function registration() {
     const form = document.getElementById("registrationForm");
     if (form) {
         form.addEventListener("submit", (e) => {
@@ -31,9 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 500);
         });
     }
-});
+}
 
-document.addEventListener("DOMContentLoaded", () => {
+function login() {
     const form = document.getElementById("loginForm");
     if (form) {
         form.addEventListener("submit", (e) => {
@@ -47,14 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     updateMenu(isLoggedIn);
-});
+}
 
-document.addEventListener("DOMContentLoaded", () => {
+function addRecipe() {
     const form = document.getElementById("recipeForm");
-    const addIngredientBtn = document.getElementById("addIngredientBtn");
-    addIngredientBtn.addEventListener("click", addIngredient);
-
     if (form) {
+        const addIngredientBtn = document.getElementById("addIngredientBtn");
+        addIngredientBtn.addEventListener("click", addIngredient);
+
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const recipeName = document.getElementById('recipeName').value.trim();
@@ -77,8 +85,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            await submitRecipe(recipeName, instructions, cookingTime, ingredients);
+            await submitRecipe(recipeName, instructions, cookingTime, ingredients, name);
         });
     }
-});
+}
 
+function donation() {
+    const form = document.getElementById("donationForm");
+    if (form) {
+        form.addEventListener("submit",  async (e) => {
+            e.preventDefault();
+            const amount = document.getElementById("donationAmount").value.trim();
+            await submitDonation(amount);
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+        });
+    }
+}
