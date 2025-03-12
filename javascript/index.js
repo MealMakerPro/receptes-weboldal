@@ -3,8 +3,8 @@ import {handleLogIn, updateMenu} from "./login";
 import { loadUserProfile } from "./profile";
 import "../css/all_pages.css";
 import header from "../img/name.png";
-import {addIngredient, submitRecipe} from "./recipeUpload";
-import {submitDonation} from "./donation";
+import { addIngredient, submitRecipe } from "./recipeUpload";
+import { submitDonation } from "./donation";
 
 document.getElementById('headerImg').src = header;
 
