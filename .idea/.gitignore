@@ -2,6 +2,7 @@
 /shelf/
 /workspace.xml/
 node_modules/
+dist/
 firebase-config.js
 # Editor-based HTTP Client requests
 /httpRequests/
