@@ -1,5 +1,5 @@
 import { handleRegistration } from "./registration";
-import {handleLogIn, updateMenu} from "./login";
+import { handleLogIn, updateMenu } from "./login";
 import { loadUserProfile } from "./profile";
 import "../css/all_pages.css";
 import header from "../img/name.png";
@@ -34,9 +34,6 @@ function registration() {
             const password = document.getElementById("password").value;
 
             handleRegistration(name, email, username, password);
-            setTimeout(() => {
-                location.reload();
-            }, 500);
         });
     }
 }

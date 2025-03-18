@@ -1,6 +1,6 @@
+import { auth, database } from "./firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
-import { auth, database } from "./firebase-config";
 
 if (window.location.pathname.includes("registration.html")) {
     import("../css/registration.css");
@@ -19,6 +19,10 @@ export function handleRegistration(name, email, username, password) {
             };
             await setDoc(doc(database, "users", user.uid), userData);
             console.log("Felhasználó regisztrálva: " + user);
+            alert("Sikeres regisztráció!");
+            setTimeout(() => {
+                location.reload();
+            }, 500);
         })
         .catch((error) => {
             console.error("Regisztrációs hiba: ", error);

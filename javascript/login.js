@@ -1,10 +1,9 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from './firebase-config';
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 if (window.location.pathname.includes("login")) {
     import("../css/login.css");
 }
-
-const auth = getAuth();
 
 export function handleLogIn(email, password) {
     signInWithEmailAndPassword(auth, email, password)

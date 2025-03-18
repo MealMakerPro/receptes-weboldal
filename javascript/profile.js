@@ -1,6 +1,6 @@
+import { database, auth } from "./firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { database, auth } from "./firebase-config";
 
 if (window.location.pathname.includes("profile.html")) {
     import("../css/profile.css");

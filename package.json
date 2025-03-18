@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@firebase/app": "^0.10.17",
-    "firebase": "^11.1.0",
+    "@firebase/app": "0.10.17",
+    "firebase": "11.1.0",
     "firebase-admin": "^13.1.0",
     "require-context": "^1.1.0",
     "vue": "^3.5.13",
@@ -12,7 +12,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production"
+    "build": "webpack --mode=development"
   },
   "keywords": [],
   "author": "",
