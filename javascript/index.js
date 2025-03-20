@@ -5,6 +5,7 @@ import "../css/all_pages.css";
 import header from "../img/name.png";
 import { addIngredient, submitRecipe } from "./recipeUpload";
 import { submitDonation } from "./donation";
+import { listingRecipes } from "./listingRecipes";
 
 document.getElementById('headerImg').src = header;
 
@@ -14,6 +15,16 @@ if (document.getElementById('indexPage')) {
 
 if (document.body.id === "profilePage") {
     loadUserProfile();
+}
+
+if (document.body.id === "fetchRecipes") {
+    listingRecipes()
+        .then(() => {
+            console.log("Receptek sikeresen betöltve!");
+        })
+        .catch((error) => {
+            console.error("Hiba történt a receptek betöltésekor:", error);
+        });
 }
 
 document.addEventListener("DOMContentLoaded", () => {

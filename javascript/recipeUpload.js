@@ -37,6 +37,7 @@ export async function submitRecipe(recipeName, instructions, cookingTime, ingred
 
         await setDoc(recipeRef, recipeData);
         console.log("Recept sikeresen mentve!");
+        alert("Recept sikeresen mentve!");
         document.getElementById('recipeForm').reset();
         document.getElementById('ingredients').innerHTML = "";
         addIngredient();
