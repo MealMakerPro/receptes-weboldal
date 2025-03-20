@@ -76,13 +76,14 @@ function addRecipe() {
                     ingredients.push({ amount, unit, ingredientName });
                 }
             });
+            const recipeImage = document.getElementById("recipeImage").files[0];
 
-            if (!recipeName || !instructions || !cookingTime || ingredients.length === 0) {
-                alert("Kérlek, tölts ki minden mezőt és adj hozzá legalább egy hozzávalót!");
+            if (!recipeName || !instructions || !cookingTime || ingredients.length === 0 || !recipeImage) {
+                alert("Kérlek, tölts ki minden mezőt és adj hozzá legalább egy hozzávalót és egy képet!");
                 return;
             }
 
-            await submitRecipe(recipeName, instructions, cookingTime, ingredients, name);
+            await submitRecipe(recipeName, instructions, cookingTime, ingredients, recipeImage);
         });
     }
 }

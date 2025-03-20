@@ -24,5 +24,17 @@ export function loadUserProfile() {
         } else {
             console.log("Felhasználó nincs bejelentkezve!");
         }
+        if (user.email === "admin@admin.com") {
+            const donationRef = doc(database, "donations", "summary");
+            const donationSnap = await getDoc(donationRef);
+
+            document.getElementById("donationText").style.display = "block";
+
+            if (donationSnap.exists()) {
+                const donationData = donationSnap.data();
+
+                document.getElementById("donationSum").innerText = donationData.totalAmount || "N/A";
+            }
+        }
     });
 }

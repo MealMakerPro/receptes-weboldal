@@ -1,6 +1,7 @@
-import { database, auth } from './firebase-config';
+import { database, auth, storage } from './firebase-config';
 import "../css/recipeUpload.css";
-import {doc, setDoc} from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export function addIngredient() {
     const ingredientsDiv = document.getElementById('ingredients');
@@ -14,9 +15,13 @@ export function addIngredient() {
     ingredientsDiv.appendChild(newIngredient);
 }
 
-export async function submitRecipe(recipeName, instructions, cookingTime, ingredients) {
+export async function submitRecipe(recipeName, instructions, cookingTime, ingredients, recipeImage) {
     try {
         const user = auth.currentUser;
+
+        const storageRef = ref(storage, `receptek_kepek/${recipeImage.name}`);
+        await uploadBytes(storageRef, recipeImage);
+        const imgUrl = await getDownloadURL(storageRef);
 
         const recipeRef = doc(database, "recipes", recipeName.toLowerCase().replace(/\s+/g, "_"));
         const recipeData = {
@@ -24,6 +29,7 @@ export async function submitRecipe(recipeName, instructions, cookingTime, ingred
             instructions: instructions,
             cookingTime: cookingTime,
             ingredients: ingredients,
+            imgUrl: imgUrl,
             createdAt: new Date().toISOString(),
             userId: user.uid,
             userEmail: user.email,
