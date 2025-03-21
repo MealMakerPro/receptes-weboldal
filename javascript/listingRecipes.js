@@ -2,14 +2,35 @@ import { database } from "./firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import "../css/recipes.css";
 
+let recipes = [];
+
 export async function listingRecipes() {
     const querySnapshot = await getDocs(collection(database, "recipes"));
-    const recipeContainer = document.getElementById("recipe-container");
-    recipeContainer.innerHTML = "";
+
 
     querySnapshot.forEach((doc) => {
         const recipe = doc.data();
+        recipes.push(recipe);
+    });
 
+    const searchingText = sessionStorage.getItem("search") || "";
+    sessionStorage.removeItem("search");
+
+    if (searchingText) {
+        const filteredRecipes = recipes.filter(recipe =>
+            recipe.recipeName.toLowerCase().includes(searchingText.toLowerCase())
+        );
+        showRecipe(filteredRecipes);
+    } else {
+        showRecipe(recipes);
+    }
+}
+
+function showRecipe(recipeList) {
+    const recipeContainer = document.getElementById("recipe-container");
+    recipeContainer.innerHTML = "";
+
+    recipeList.forEach((recipe) => {
         const recipeBox = document.createElement("div");
         recipeBox.classList.add("recipe-box");
         recipeBox.innerHTML = `
@@ -19,7 +40,7 @@ export async function listingRecipes() {
         `;
 
         recipeBox.addEventListener("click", () => {
-            window.location.href = "../html/oneRecipe.html";
+            window.location.href = "/recipe.html";
         });
 
         recipeContainer.appendChild(recipeBox);

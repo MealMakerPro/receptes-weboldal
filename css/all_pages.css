@@ -9,7 +9,7 @@ body {
 }
 
 header {
-    background: linear-gradient(to right, white, lightcoral);
+    background: linear-gradient(to right, white, #E1F8DC);
     display: flex;
     width: 100%;
     padding: 0;
@@ -49,7 +49,7 @@ main {
 }
 
 footer {
-    background-color: lightcoral;
+    background-color: #E1F8DC;
     font-family: Century Gothic, serif;
     font-size: 1.7em;
     text-align: center;

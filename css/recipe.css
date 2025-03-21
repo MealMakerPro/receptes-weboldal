@@ -1,0 +1,14 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Century Gothic, serif;
+}
+
+main {
+    width: 80%;
+    margin: auto auto;
+    padding: 20px;
+    height: auto;
+}

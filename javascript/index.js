@@ -3,28 +3,20 @@ import { handleLogIn, updateMenu } from "./login";
 import { loadUserProfile } from "./profile";
 import "../css/all_pages.css";
 import header from "../img/name.png";
+import indexImg from "../img/indexImg.jpg";
 import { addIngredient, submitRecipe } from "./recipeUpload";
 import { submitDonation } from "./donation";
-import { listingRecipes } from "./listingRecipes";
+import {listingRecipes} from "./listingRecipes";
 
 document.getElementById('headerImg').src = header;
 
 if (document.getElementById('indexPage')) {
     import("../css/index.css");
+    document.getElementById('indexImg').src = indexImg;
 }
 
 if (document.body.id === "profilePage") {
     loadUserProfile();
-}
-
-if (document.body.id === "fetchRecipes") {
-    listingRecipes()
-        .then(() => {
-            console.log("Receptek sikeresen betöltve!");
-        })
-        .catch((error) => {
-            console.error("Hiba történt a receptek betöltésekor:", error);
-        });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -32,7 +24,33 @@ document.addEventListener("DOMContentLoaded", () => {
     login();
     addRecipe();
     donation();
+
+    const form = document.getElementById("search");
+
+    if (form) {
+        searchAndListRecipe(form);
+    } else {
+        listingRecipes().then(() => {
+            console.log("Receptek sikeresen betöltve!");
+        })
+            .catch((error) => {
+                console.error("Hiba történt a receptek betöltésekor:", error);
+            });
+    }
 });
+
+function searchAndListRecipe(form) {
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const searchingValue = document.getElementById("indexSearchText").value.trim();
+        if (searchingValue) {
+            sessionStorage.setItem("search", searchingValue);
+            window.location.href = "../recipes.html";
+        } else {
+            alert("Írj be valamit a keresőbe!");
+        }
+    });
+}
 
 function registration() {
     const form = document.getElementById("registrationForm");

@@ -13,6 +13,25 @@ main {
     height: auto;
 }
 
+#indexSearchText {
+    width: 60%;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+#indexSearchButton {
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#indexImg {
+    width: 100%;
+}
+
 #number {
     font-family: Century Gothic, serif;
     padding: 10px;
@@ -24,9 +43,10 @@ main {
 }
 
 #donationButton {
-    padding: 0 20px;
+    padding: 10px;
+    margin: 10px;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     font-family: Century Gothic, serif;
 }
 
