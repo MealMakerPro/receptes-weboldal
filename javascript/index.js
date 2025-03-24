@@ -1,12 +1,13 @@
 import { handleRegistration } from "./registration";
 import { handleLogIn, updateMenu } from "./login";
-import { loadUserProfile } from "./profile";
+import {listMyRecipes, loadUserProfile} from "./profile";
 import "../css/all_pages.css";
 import header from "../img/name.png";
 import indexImg from "../img/indexImg.jpg";
 import { addIngredient, submitRecipe } from "./recipeUpload";
 import { submitDonation } from "./donation";
 import {listingRecipes} from "./listingRecipes";
+import {listOneRecipe} from "./oneRecipe";
 
 document.getElementById('headerImg').src = header;
 
@@ -17,6 +18,11 @@ if (document.getElementById('indexPage')) {
 
 if (document.body.id === "profilePage") {
     loadUserProfile();
+    listMyRecipes().then(() => {
+        console.log("Receptjeim sikeres betöltése.");
+    }).catch((error) => {
+        console.error("Hiba történt a receptjeim betöltésekor: ", error);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -24,18 +30,27 @@ document.addEventListener("DOMContentLoaded", () => {
     login();
     addRecipe();
     donation();
+    if (document.getElementById("oneRecipe")) {
+        listOneRecipe().then(() => {
+            console.log("Recept sikeresen betöltve!");
+        }).catch((error) => {
+            console.error("Hiba történt a recept betöltésekor:", error);
+        });
+    }
 
+    const id = document.getElementById("fetchRecipes");
     const form = document.getElementById("search");
-
     if (form) {
         searchAndListRecipe(form);
     } else {
-        listingRecipes().then(() => {
-            console.log("Receptek sikeresen betöltve!");
-        })
-            .catch((error) => {
-                console.error("Hiba történt a receptek betöltésekor:", error);
-            });
+        if (id) {
+            listingRecipes().then(() => {
+                console.log("Receptek sikeresen betöltve!");
+            })
+                .catch((error) => {
+                    console.error("Hiba történt a receptek betöltésekor:", error);
+                });
+        }
     }
 });
 

@@ -12,3 +12,15 @@ main {
     padding: 20px;
     height: auto;
 }
+
+#recipeImg {
+    width: 50%;
+    height: auto;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}

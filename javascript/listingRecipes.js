@@ -1,12 +1,11 @@
 import { database } from "./firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import {collection, getDocs} from "firebase/firestore";
 import "../css/recipes.css";
 
 let recipes = [];
 
 export async function listingRecipes() {
     const querySnapshot = await getDocs(collection(database, "recipes"));
-
 
     querySnapshot.forEach((doc) => {
         const recipe = doc.data();
@@ -40,7 +39,7 @@ function showRecipe(recipeList) {
         `;
 
         recipeBox.addEventListener("click", () => {
-            window.location.href = "/recipe.html";
+            window.location.href = `/recipe.html?nev=${recipe.recipeName}`;
         });
 
         recipeContainer.appendChild(recipeBox);

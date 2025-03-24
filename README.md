@@ -1,3 +1,6 @@
+Recepteket kezelő alkalmazás
+Recipe management website
+
 A projekt célja egy olyan weboldal létrehozása, melyre mindenféle recept feltölthető, korlátozások nélkül.
 ...
 
