@@ -8,6 +8,7 @@ import { addIngredient, submitRecipe } from "./recipeUpload";
 import { submitDonation } from "./donation";
 import {listingRecipes} from "./listingRecipes";
 import {listOneRecipe} from "./oneRecipe";
+import {createBlogPost} from "./blog";
 
 document.getElementById('headerImg').src = header;
 
@@ -29,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     registration();
     login();
     addRecipe();
+    createPosts();
     donation();
     if (document.getElementById("oneRecipe")) {
         listOneRecipe().then(() => {
@@ -128,6 +130,25 @@ function addRecipe() {
             }
 
             await submitRecipe(recipeName, instructions, cookingTime, ingredients, recipeImage);
+        });
+    }
+}
+
+function createPosts() {
+    const form = document.getElementById("blogPostForm");
+
+    if (form) {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const postName = document.getElementById("postName").value.trim();
+            const postBody = document.getElementById("postBody").value.trim();
+
+            if (!postName || !postBody) {
+                alert("Kérlek tölts ki minden mezőt!");
+                return;
+            }
+
+            await createBlogPost(postName, postBody);
         });
     }
 }

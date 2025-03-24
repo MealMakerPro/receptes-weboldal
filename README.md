@@ -19,4 +19,9 @@ Diagramok elkészítése, receptek, képek gyűjtése
 8. böngésző ikon betöltés probléma -> megoldás: a webpack.config.js fájlban megadtam a HtmlWebpackPlugin-ban favicon-ként az ikonom elérési útvonalát 
 9. adatok mentése adatbázisba probléma -> registration.js fájlban egy Firebase User objektumot akartam a setDoc() függvénynek paraméterül adni, de oda csak egy egyszerű JavaScript objektumot fogad el
 10. két main.js fájl volt a dist mappában, ezért kaptam egy "404 not found" hibát, mert nem a jó main.js fájlt találta meg -> megoldás: az index.html fájlban beszúrtam script tag-ben a dist/main.js fájlt, de erre nincs szükség, mert automatikusan meghívja a program
-11. 
+
+
+Források:
+ - nosalty.hu
+ - cookpad.com/hu
+ - streetkitchen.hu

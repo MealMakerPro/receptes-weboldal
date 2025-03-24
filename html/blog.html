@@ -22,8 +22,13 @@
     <main>
         <h1>Blog</h1>
         <h3>Írj te is nekünk!</h3>
-        <input type="text" id="blogText" required>
-        <button type="submit">Küldés</button>
+        <form id="blogPostForm">
+            <input type="text" id="postName" placeholder="Bejegyzés címe..."><br>
+            <input type="text" id="postBody" placeholder="Bejegyzés szövege..." required><br>
+            <button type="submit" id="postButton">Küldés</button>
+        </form>
+        <hr>
+        <h2>Bejegyzések:</h2>
         <div id="blog-container" class="grid-container"></div>
     </main>
     <footer>
