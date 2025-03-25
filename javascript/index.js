@@ -8,7 +8,7 @@ import { addIngredient, submitRecipe } from "./recipeUpload";
 import { submitDonation } from "./donation";
 import {listingRecipes} from "./listingRecipes";
 import {listOneRecipe} from "./oneRecipe";
-import {createBlogPost} from "./blog";
+import {createBlogPost, showBlogPosts} from "./blog";
 
 document.getElementById('headerImg').src = header;
 
@@ -31,7 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
     login();
     addRecipe();
     createPosts();
+
+    if (document.getElementById("blog")) {
+        showBlogPosts().then(() => {
+            console.log("Blogbejegyzések sikeresen betöltve!");
+        }).catch((error) => {
+            console.error("Hiba történt a blogbejegyzések betöltésekor: ", error);
+        });
+    }
+
     donation();
+
     if (document.getElementById("oneRecipe")) {
         listOneRecipe().then(() => {
             console.log("Recept sikeresen betöltve!");

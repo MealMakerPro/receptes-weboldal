@@ -1,24 +1,59 @@
 import "../css/blog.css";
 import { auth, database } from "./firebase-config";
-import {doc, setDoc, Timestamp} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, setDoc, Timestamp} from "firebase/firestore";
 
 export async function createBlogPost(postName, postBody) {
     try {
         const user = auth.currentUser;
-        const blogRef = doc(database, "posts", postName.toLowerCase().replace(/\s+/g, "_"));
-        const postData = {
-            postName: postName,
-            postBody: postBody,
-            creator: user.email,
-            createdAt: Timestamp.now(),
-        };
+        if (user) {
+            const userRef = doc(database, "users", user.uid);
+            const userSnap = await getDoc(userRef);
+            const userName = userSnap.data().username;
 
-        await setDoc(blogRef, postData);
-        console.log("Blogbejegyzés sikeresen létrehozva!");
-        alert("Blogbejegyzés sikeres mentése.");
-        document.getElementById("blogPostForm").reset();
+            const blogRef = doc(database, "posts", postName.toLowerCase().replace(/\s+/g, "_"));
+            const postData = {
+                postName: postName,
+                postBody: postBody,
+                creator: user.email,
+                creatorName: userName,
+                createdAt: Timestamp.now(),
+            };
+
+            await setDoc(blogRef, postData);
+            console.log("Blogbejegyzés sikeresen létrehozva!");
+            alert("Blogbejegyzés sikeres mentése.");
+            document.getElementById("blogPostForm").reset();
+        }
     } catch (error) {
         console.error("Hiba a bejegyzés létrehozásánál: ", error);
         alert("Hiba a bejegyzés létrehozásakor!");
     }
+}
+
+export async function showBlogPosts() {
+    const querySnapshot = await getDocs(collection(database, "posts"));
+    const blogContainer = document.getElementById("blog-container");
+    blogContainer.innerHTML = "";
+
+    querySnapshot.forEach((posts) => {
+        const post = posts.data();
+        const createdAt = post.createdAt.toDate();
+        const formattedDate = createdAt.toLocaleString("hu-HU", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+        const postBox = document.createElement("div");
+        postBox.classList.add("post-box");
+        postBox.innerHTML = `
+            <h3>${post.postName}</h3><br>
+            <p>${post.postBody}</p><br>
+            <p><strong>Készítette:</strong> ${post.creatorName}<span class="tab"></span><strong>Létrehozva:</strong> ${formattedDate}</p>
+        `;
+        blogContainer.appendChild(postBox);
+    });
+
 }
