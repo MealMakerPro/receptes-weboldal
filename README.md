@@ -25,3 +25,4 @@ Források:
  - nosalty.hu
  - cookpad.com/hu
  - streetkitchen.hu
+ - mindmegette.hu

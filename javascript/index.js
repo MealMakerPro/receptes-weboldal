@@ -20,18 +20,19 @@ if (document.getElementById('indexPage')) {
     document.getElementById('indexImg').src = indexImg;
 }
 
-if (document.body.id === "profilePage") {
-    loadUserProfile();
-    listMyRecipes().then(() => {
-        console.log("Receptjeim sikeres betöltése.");
-    }).catch((error) => {
-        console.error("Hiba történt a receptjeim betöltésekor: ", error);
-    });
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     registration();
     login();
+
+    if (document.body.id === "profilePage") {
+        loadUserProfile();
+        listMyRecipes().then(() => {
+            console.log("Receptjeim sikeres betöltése.");
+        }).catch((error) => {
+            console.error("Hiba történt a receptjeim betöltésekor: ", error);
+        });
+    }
+
     addRecipe();
     createPosts();
 
@@ -53,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const recipeName = document.getElementById("recipeName").textContent.trim();
                 const recipeImg = document.getElementById("recipeImg").src;
                 const heart = document.getElementById("heart");
-                console.log(recipeId);
 
                 if (user) {
                     checkFavoriteStatus(user, recipeId, heart).then(() => {

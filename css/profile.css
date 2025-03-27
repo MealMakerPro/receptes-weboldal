@@ -33,6 +33,17 @@ li {
     padding: 10px;
 }
 
+.edit-button, .eye-button, .delete-button {
+    cursor: pointer;
+    color: #555;
+    margin-left: 10px;
+    transition: color 0.2s ease-in-out;
+}
+
+.edit-button:hover, .eye-button:hover, .delete-button:hover {
+    color: #007bff;
+}
+
 .favorite-box {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

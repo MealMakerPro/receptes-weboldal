@@ -1,6 +1,6 @@
 import { database, auth } from "./firebase-config";
 import {onAuthStateChanged} from "firebase/auth";
-import {collection, doc, getDoc, getDocs} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, deleteDoc} from "firebase/firestore";
 import "../css/profile.css";
 
 export function loadUserProfile() {
@@ -61,12 +61,35 @@ export async function listMyRecipes() {
     const myRecipes = document.getElementById("myRecipes");
     myRecipes.innerHTML = "";
 
-    recipeSnapshot.forEach((doc) => {
-        const recipe = doc.data();
+    recipeSnapshot.forEach((docFor) => {
+        const recipe = docFor.data();
         if (recipe.userEmail === user.email ) {
             const li = document.createElement("li");
-            li.textContent = recipe.recipeName;
+            li.innerHTML = `
+                <span>${recipe.recipeName}</span>
+                <i class="fa fa-eye eye-button" data-id="${recipe.recipeName}"></i>
+                <i class="fa fa-pencil edit-button" data-id="${recipe.recipeName}"></i>
+                <i class="fa fa-trash delete-button" data-id="${recipe.recipeId}"></i>
+            `;
             myRecipes.appendChild(li);
+
+            document.getElementById("profilePage").addEventListener("click", async (event) => {
+                const eyeButton = event.target.closest(".eye-button");
+                const deleteButton = event.target.closest(".delete-button");
+                if (eyeButton) {
+                    const recipeName = eyeButton.getAttribute("data-id");
+                    window.location.href = `/recipe.html?nev=${recipeName}`;
+                } else if (deleteButton) {
+                    const recipeId = deleteButton.getAttribute("data-id");
+                    try {
+                        const recipeRef = doc(database, "recipes", recipeId);
+                        await deleteDoc(recipeRef);
+                        event.target.closest("li").remove();
+                    } catch (error) {
+                        console.error("Hiba történt a törlés során:", error);
+                    }
+                }
+            });
         } else {
             myRecipes.innerHTML = "<li>Nincsenek receptjeid.</li>";
         }
