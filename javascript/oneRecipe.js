@@ -30,6 +30,7 @@ function showOneRecipe(data) {
     document.getElementById("recipeImg").src = data.imgUrl;
     document.getElementById("cookingTime").textContent = data.cookingTime;
     document.getElementById("instructions").textContent = data.instructions;
+    document.getElementById("recipeId").textContent = data.recipeId;
 
     const ingredientsList = document.getElementById("ingredients");
     ingredientsList.innerHTML = "";

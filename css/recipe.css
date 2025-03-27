@@ -18,6 +18,15 @@ main {
     height: auto;
 }
 
+.heart {
+    color: grey;
+    font-size: 30px;
+}
+
+.heart.favorite {
+    color: red;
+}
+
 ul {
     list-style-type: none;
     margin: 0;

@@ -33,6 +33,39 @@ li {
     padding: 10px;
 }
 
+.favorite-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.fav-box {
+    border: 2px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+.fav-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fav-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.fav-box h3 {
+    margin: 10px 0;
+}
+
 footer {
     margin-top: auto;
 }

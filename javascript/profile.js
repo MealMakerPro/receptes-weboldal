@@ -8,13 +8,32 @@ export function loadUserProfile() {
         if (user) {
             const userRef = doc(database, "users", user.uid);
             const userSnap = await getDoc(userRef);
+            const recipeSnapshot = await getDocs(collection(database, "recipes"));
 
             if (userSnap.exists()) {
                 const userData = userSnap.data();
+                const favRecipes = userData.favoriteRecipes || [];
+                const favContainer = document.getElementById("favoriteRecipes");
+                favContainer.innerHTML = "";
 
                 document.getElementById("name").innerText = userData.name || "N/A";
                 document.getElementById("email").innerText = userData.email || "N/A";
                 document.getElementById("username").innerText = userData.username || "N/A";
+
+                favRecipes.forEach((recipeId) => {
+                    recipeSnapshot.forEach((doc) => {
+                        const recipe = doc.data();
+                        if (recipeId === recipe.recipeId) {
+                            const favBox = document.createElement("div");
+                            favBox.classList.add("fav-box");
+                            favBox.innerHTML = `
+                                <img src="${recipe.imgUrl}" alt="${recipe.recipeName}">
+                                <h3>${recipe.recipeName}</h3>
+                            `;
+                            favContainer.appendChild(favBox);
+                        }
+                    });
+                });
             } else {
                 console.log("Nincsenek adatok a Firestore-ban!");
             }

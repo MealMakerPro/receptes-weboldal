@@ -2,6 +2,7 @@ import { database, auth, storage } from './firebase-config';
 import "../css/recipeUpload.css";
 import { doc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 export function addIngredient() {
     const ingredientsDiv = document.getElementById('ingredients');
@@ -22,8 +23,9 @@ export async function submitRecipe(recipeName, instructions, cookingTime, ingred
         const storageRef = ref(storage, `receptek_kepek/${recipeImage.name}`);
         await uploadBytes(storageRef, recipeImage);
         const imgUrl = await getDownloadURL(storageRef);
+        const recipeId = uuidv4();
 
-        const recipeRef = doc(database, "recipes", recipeName.toLowerCase().replace(/\s+/g, "_"));
+        const recipeRef = doc(database, "recipes", recipeId);
         const recipeData = {
             recipeName: recipeName,
             instructions: instructions,
@@ -33,6 +35,7 @@ export async function submitRecipe(recipeName, instructions, cookingTime, ingred
             createdAt: new Date().toISOString(),
             userId: user.uid,
             userEmail: user.email,
+            recipeId: recipeId,
         };
 
         await setDoc(recipeRef, recipeData);

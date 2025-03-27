@@ -2,6 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Recept</title>
 </head>
 <body>
@@ -22,6 +23,7 @@
 <main id="oneRecipe">
     <div id="recipeData">
         <img src="" id="recipeImg" alt="recipeImg">
+        <i class="fa fa-heart heart" id="heart"></i>
         <h2><span id="recipeName"></span></h2>
         <h3>Hozzávalók:</h3>
         <ul id="ingredients"></ul>
@@ -29,6 +31,7 @@
         <p><span id="instructions"></span></p>
         <h3>Elkészítési idő:</h3>
         <p><span id="cookingTime"></span></p>
+        <span style="display: none" id="recipeId"></span>
     </div>
 </main>
 <footer>

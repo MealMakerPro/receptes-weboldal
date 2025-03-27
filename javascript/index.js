@@ -9,6 +9,9 @@ import { submitDonation } from "./donation";
 import {listingRecipes} from "./listingRecipes";
 import {listOneRecipe} from "./oneRecipe";
 import {createBlogPost, showBlogPosts} from "./blog";
+import {checkFavoriteStatus, toggleFavorites} from "./pickFav";
+import {auth} from "./firebase-config";
+import {onAuthStateChanged} from "firebase/auth";
 
 document.getElementById('headerImg').src = header;
 
@@ -45,6 +48,33 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("oneRecipe")) {
         listOneRecipe().then(() => {
             console.log("Recept sikeresen betöltve!");
+            onAuthStateChanged(auth, (user) => {
+                const recipeId = document.getElementById("recipeId").textContent.trim();
+                const recipeName = document.getElementById("recipeName").textContent.trim();
+                const recipeImg = document.getElementById("recipeImg").src;
+                const heart = document.getElementById("heart");
+                console.log(recipeId);
+
+                if (user) {
+                    checkFavoriteStatus(user, recipeId, heart).then(() => {
+                        console.log("Sikeres kedvencbetöltés!");
+                    }).catch((error) => {
+                        console.error("Hiba a kedvenc betöltésekor: ", error);
+                    });
+
+                    if (heart) {
+                        heart.addEventListener("click", () => {
+                            toggleFavorites(user, recipeId, heart, recipeName, recipeImg).then(() => {
+                                console.log("Recept sikeresen kedvencnek választva!");
+                            }).catch((error) => {
+                                console.error("Hiba történt a kedvencnek választáskor: ", error);
+                            });
+                        });
+                    }
+                } else {
+                    console.log("Nincs bejelentkezett felhasználó!");
+                }
+            });
         }).catch((error) => {
             console.error("Hiba történt a recept betöltésekor:", error);
         });
