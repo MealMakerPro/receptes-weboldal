@@ -1,6 +1,7 @@
 import "../css/recipe.css";
-import { database } from "./firebase-config";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {database, storage} from "./firebase-config";
+import {arrayUnion, collection, doc, getDoc, getDocs, query, updateDoc, where} from "firebase/firestore";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 
 export async function listOneRecipe() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -32,6 +33,7 @@ function showOneRecipe(data) {
     document.getElementById("instructions").textContent = data.instructions;
     document.getElementById("recipeId").textContent = data.recipeId;
 
+
     const ingredientsList = document.getElementById("ingredients");
     ingredientsList.innerHTML = "";
 
@@ -48,4 +50,22 @@ function showOneRecipe(data) {
 
 function formatRecipeName(name) {
     return name.toLowerCase().replace(/\s+/g, "_");
+}
+
+export async function uploadFinishedImages(finishedImage, recipeId) {
+    try {
+        const storageRef = ref(storage, `finishedImages/${finishedImage.name}`);
+        await uploadBytes(storageRef, finishedImage);
+        const imgUrl = await getDownloadURL(storageRef);
+        const recipeRef = doc(database, "recipes", recipeId);
+        const recipeSnap = await getDoc(recipeRef);
+
+        if (recipeSnap.exists()) {
+            await updateDoc(recipeRef, {
+                finishedImages: arrayUnion(imgUrl),
+            });
+        }
+    } catch (error) {
+        console.error("Hiba az elkészült étel fotó feltöltésénél: " + error);
+    }
 }

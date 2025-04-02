@@ -13,6 +13,18 @@ main {
     height: auto;
 }
 
+h4 {
+    font-style: italic;
+    font-weight: normal;
+}
+
+button {
+    padding: 0 20px;
+    background-color: white;
+    border-radius: 10px;
+    font-family: Century Gothic, serif;
+}
+
 #recipeImg {
     width: 50%;
     height: auto;

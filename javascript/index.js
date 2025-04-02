@@ -7,7 +7,7 @@ import indexImg from "../img/indexImg.jpg";
 import { addIngredient, submitRecipe } from "./recipeUpload";
 import { submitDonation } from "./donation";
 import {listingRecipes} from "./listingRecipes";
-import {listOneRecipe} from "./oneRecipe";
+import {listOneRecipe, uploadFinishedImages} from "./oneRecipe";
 import {createBlogPost, showBlogPosts} from "./blog";
 import {checkFavoriteStatus, toggleFavorites} from "./pickFav";
 import {auth} from "./firebase-config";
@@ -97,6 +97,17 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }).catch((error) => {
             console.error("Hiba történt a recept betöltésekor:", error);
+        });
+
+        const finishedBttn = document.getElementById("finishedImgButton");
+        finishedBttn.addEventListener("click", () => {
+            const img = document.getElementById("finishedRecipeImage").files[0];
+            const recipeId = document.getElementById("recipeId").textContent.trim();
+            uploadFinishedImages(img, recipeId).then(() => {
+                console.log("Sikeres elkészült fotó feltöltés!");
+            }).catch((error) => {
+                console.error("Hiba az elkészült fotó feltöltésekor: " + error);
+            });
         });
     }
 
