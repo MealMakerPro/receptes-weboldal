@@ -12,6 +12,7 @@ import {createBlogPost, showBlogPosts} from "./blog";
 import {checkFavoriteStatus, toggleFavorites} from "./pickFav";
 import {auth} from "./firebase-config";
 import {onAuthStateChanged} from "firebase/auth";
+import {checkCartStatus, listCart, shoppingList, toggleCartList} from "./makingShoppingList";
 
 document.getElementById('headerImg').src = header;
 
@@ -46,14 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     donation();
 
+    if (document.getElementById("shopping-list")) {
+        shoppingList();
+    }
+
     if (document.getElementById("oneRecipe")) {
         listOneRecipe().then(() => {
             console.log("Recept sikeresen betöltve!");
             onAuthStateChanged(auth, (user) => {
                 const recipeId = document.getElementById("recipeId").textContent.trim();
-                const recipeName = document.getElementById("recipeName").textContent.trim();
-                const recipeImg = document.getElementById("recipeImg").src;
                 const heart = document.getElementById("heart");
+                const cart = document.getElementById("cart");
 
                 if (user) {
                     checkFavoriteStatus(user, recipeId, heart).then(() => {
@@ -62,12 +66,28 @@ document.addEventListener("DOMContentLoaded", () => {
                         console.error("Hiba a kedvenc betöltésekor: ", error);
                     });
 
+                    checkCartStatus(user, recipeId, cart).then(() => {
+                        console.log("Sikeres kosárbetöltés!");
+                    }).catch((error) => {
+                        console.error("Hiba a kosár betöltésekor: ", error);
+                    });
+
                     if (heart) {
                         heart.addEventListener("click", () => {
-                            toggleFavorites(user, recipeId, heart, recipeName, recipeImg).then(() => {
+                            toggleFavorites(user, recipeId, heart).then(() => {
                                 console.log("Recept sikeresen kedvencnek választva!");
                             }).catch((error) => {
                                 console.error("Hiba történt a kedvencnek választáskor: ", error);
+                            });
+                        });
+                    }
+
+                    if (cart) {
+                        cart.addEventListener("click", () => {
+                            toggleCartList(user, recipeId, cart).then(() => {
+                                console.log("Recept sikeresen bevásárló listához adva");
+                            }).catch((error) => {
+                                console.error("Hiba történt a bevásárló listához adáskor: " + error);
                             });
                         });
                     }

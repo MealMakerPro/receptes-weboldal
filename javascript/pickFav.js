@@ -1,4 +1,4 @@
-import {database} from "./firebase-config";
+import { database } from "./firebase-config";
 import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 export async function checkFavoriteStatus(user, recipeId, heart) {
@@ -26,9 +26,9 @@ export async function toggleFavorites(user, recipeId, heart) {
     const userRef = doc(database, "users", user.uid);
 
     try {
-        const docSnap = await getDoc(userRef);
-        if (docSnap.exists()) {
-            const userData = docSnap.data();
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+            const userData = userSnap.data();
             let favorites = userData.favoriteRecipes || [];
 
             if (favorites.includes(recipeId)) {

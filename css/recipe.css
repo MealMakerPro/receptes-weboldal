@@ -27,6 +27,15 @@ main {
     color: red;
 }
 
+.cart {
+    color: grey;
+    font-size: 30px;
+}
+
+.cart.shoppinglist {
+    color: yellow;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
