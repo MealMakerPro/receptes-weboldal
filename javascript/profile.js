@@ -31,6 +31,10 @@ export function loadUserProfile() {
                                 <h3>${recipe.recipeName}</h3>
                             `;
                             favContainer.appendChild(favBox);
+
+                            favContainer.addEventListener("click", () => {
+                                window.location.href = `/recipe.html?nev=${recipe.recipeName}`;
+                            });
                         }
                     });
                 });
@@ -75,6 +79,7 @@ export async function listMyRecipes() {
 
             document.getElementById("profilePage").addEventListener("click", async (event) => {
                 const eyeButton = event.target.closest(".eye-button");
+                const editButton = event.target.closest(".edit-button");
                 const deleteButton = event.target.closest(".delete-button");
                 if (eyeButton) {
                     const recipeName = eyeButton.getAttribute("data-id");
@@ -88,6 +93,9 @@ export async function listMyRecipes() {
                     } catch (error) {
                         console.error("Hiba történt a törlés során:", error);
                     }
+                } else if (editButton) {
+                    const recipeName = editButton.getAttribute("data-id");
+                    window.location.href = `recipe.html?edit=true&nev=${recipeName}`;
                 }
             });
         } else {

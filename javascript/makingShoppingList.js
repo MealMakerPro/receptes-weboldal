@@ -90,6 +90,10 @@ export function shoppingList() {
                                 <h3>${recipe.recipeName}</h3>
                             `;
                             cartContainer.appendChild(cartBox);
+
+                            cartBox.addEventListener("click", () => {
+                                window.location.href = `/recipe.html?nev=${recipe.recipeName}`;
+                            });
                         }
                     });
                 });

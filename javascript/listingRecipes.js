@@ -1,8 +1,9 @@
 import { database } from "./firebase-config";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, getDocs, query, limit, orderBy} from "firebase/firestore";
 import "../css/recipes.css";
 
 let recipes = [];
+let latestRecipes = [];
 
 export async function listingRecipes() {
     const querySnapshot = await getDocs(collection(database, "recipes"));
@@ -23,6 +24,19 @@ export async function listingRecipes() {
     } else {
         showRecipe(recipes);
     }
+}
+
+export async function getLatestRecipes() {
+    const recipeRef = collection(database, "recipes");
+    const q = query(recipeRef, orderBy("createdAt", "desc"), limit(3));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        latestRecipes.push(data);
+    });
+
+    showRecipe(latestRecipes);
 }
 
 function showRecipe(recipeList) {

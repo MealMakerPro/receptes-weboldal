@@ -6,19 +6,24 @@ import header from "../img/name.png";
 import indexImg from "../img/indexImg.jpg";
 import { addIngredient, submitRecipe } from "./recipeUpload";
 import { submitDonation } from "./donation";
-import {listingRecipes} from "./listingRecipes";
+import {getLatestRecipes, listingRecipes} from "./listingRecipes";
 import {listOneRecipe, uploadFinishedImages} from "./oneRecipe";
 import {createBlogPost, showBlogPosts} from "./blog";
 import {checkFavoriteStatus, toggleFavorites} from "./pickFav";
 import {auth} from "./firebase-config";
 import {onAuthStateChanged} from "firebase/auth";
-import {checkCartStatus, listCart, shoppingList, toggleCartList} from "./makingShoppingList";
+import {checkCartStatus, shoppingList, toggleCartList} from "./makingShoppingList";
 
 document.getElementById('headerImg').src = header;
 
 if (document.getElementById('indexPage')) {
     import("../css/index.css");
     document.getElementById('indexImg').src = indexImg;
+    getLatestRecipes().then(() => {
+        console.log("Legfrisebb receptek betöltése sikeres.");
+    }).catch((error) => {
+        console.error("Hiba a legfrisebb receptek betöltésekor: ", error);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -15,7 +15,7 @@ export async function listOneRecipe() {
 
             if (!querySnapshot.empty) {
                 const doc = querySnapshot.docs[0].data();
-                showOneRecipe(doc);
+                showOneRecipe(doc, urlParams);
             } else {
                 console.log(oneRecipe);
                 console.error("Nincs ilyen recept.");
@@ -26,13 +26,12 @@ export async function listOneRecipe() {
     }
 }
 
-function showOneRecipe(data) {
+function showOneRecipe(data, urlParams) {
     document.getElementById("recipeName").textContent = data.recipeName;
     document.getElementById("recipeImg").src = data.imgUrl;
     document.getElementById("cookingTime").textContent = data.cookingTime;
     document.getElementById("instructions").textContent = data.instructions;
     document.getElementById("recipeId").textContent = data.recipeId;
-
 
     const ingredientsList = document.getElementById("ingredients");
     ingredientsList.innerHTML = "";
@@ -45,6 +44,30 @@ function showOneRecipe(data) {
         });
     } else {
         ingredientsList.innerHTML = "<li>Nincsenek hozzávalók.</li>";
+    }
+
+    const gallery = document.getElementById("user-photo-gallery");
+    if (data.finishedImages && data.finishedImages.length > 0) {
+        data.finishedImages.forEach(finishedImage => {
+            const imageBox = document.createElement("img");
+            imageBox.src = finishedImage;
+            imageBox.alt = "Felhasználói kép";
+            gallery.appendChild(imageBox);
+        });
+    }
+
+    const editMode = urlParams.get("edit") === "true";
+    const saveBtn = document.getElementById("saveButton");
+
+    if (editMode) {
+        const recipeNameElement = document.getElementById("recipeName");
+        const instructionsElement = document.getElementById("instructions");
+        const cookingTimeElement = document.getElementById("cookingTime");
+
+        recipeNameElement.setAttribute("contenteditable", "true");
+        instructionsElement.setAttribute("contenteditable", "true");
+        cookingTimeElement.setAttribute("contenteditable", "true");
+        saveBtn.style.display = "inline-block";
     }
 }
 
