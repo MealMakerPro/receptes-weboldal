@@ -55,6 +55,36 @@ ul {
     width: 100%;
 }
 
+.smile {
+    color: grey;
+    font-size: 30px;
+    padding-right: 10px;
+}
+
+.smile.selected {
+    color: lime;
+}
+
+.medium {
+    color: grey;
+    font-size: 30px;
+    padding-right: 10px;
+}
+
+.medium.selected {
+    color: orange;
+}
+
+.sad {
+    color: grey;
+    font-size: 30px;
+    padding-right: 10px;
+}
+
+.sad.selected {
+    color: red;
+}
+
 .photo-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));

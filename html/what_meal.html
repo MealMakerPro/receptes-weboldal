@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Mit főzzek?</title>
 </head>
-<body>
+<body id="what-meal">
     <header>
         <img id="headerImg" src="" alt="headerImg">
         <nav>
@@ -20,6 +20,93 @@
         </nav>
     </header>
     <main>
+        <h1>Meglévő alapanyagok:</h1>
+        <div class="grid-container-materials">
+            <div class="column">
+                <h3>Alapanyagok</h3>
+                <label><input type="checkbox" value="liszt"> Liszt</label><br>
+                <label><input type="checkbox" value="cukor"> Cukor</label><br>
+                <label><input type="checkbox" value="só"> Só</label><br>
+                <label><input type="checkbox" value="méz"> Méz</label><br>
+                <label><input type="checkbox" value="tojás"> Tojás</label><br>
+                <label><input type="checkbox" value="tej"> Tej</label><br>
+                <label><input type="checkbox" value="vaj"> Vaj</label><br>
+                <label><input type="checkbox" value="olaj"> Olaj</label><br>
+                <label><input type="checkbox" value="sütőpor"> Sütőpor</label><br>
+                <label><input type="checkbox" value="élesztő"> Élesztő</label><br>
+                <label><input type="checkbox" value="búzadara"> Búzadara</label><br>
+                <label><input type="checkbox" value="tejföl"> Tejföl</label><br>
+                <label><input type="checkbox" value="túró"> Túró</label><br>
+                <label><input type="checkbox" value="mustár"> Mustár</label><br>
+                <label><input type="checkbox" value="majonéz"> Majonéz</label><br>
+                <label><input type="checkbox" value="citromlé"> Citromlé</label><br>
+                <label><input type="checkbox" value="rizs"> Rizs</label><br>
+                <label><input type="checkbox" value="bulgur"> Bulgur</label><br>
+            </div>
+            <div class="column">
+                <h3>Húsok</h3>
+                <label><input type="checkbox" value="csirkemell"> Csirkemell</label><br>
+                <label><input type="checkbox" value="csirkecomb"> Csirkecomb</label><br>
+                <label><input type="checkbox" value="sertéshús"> Sertéshús</label><br>
+                <label><input type="checkbox" value="marhahús"> Marhahús</label><br>
+                <label><input type="checkbox" value="pulykamell"> Pulykamell</label><br>
+                <label><input type="checkbox" value="darálthús"> Darálthús</label><br>
+                <label><input type="checkbox" value="kolbász"> Kolbász</label><br>
+                <label><input type="checkbox" value="sonka"> Sonka</label><br>
+                <label><input type="checkbox" value="szalonna"> Szalonna</label><br>
+                <label><input type="checkbox" value="bacon"> Bacon</label><br>
+                <label><input type="checkbox" value="hal"> Hal</label><br>
+                <label><input type="checkbox" value="tonhal"> Tonhal</label><br>
+                <label><input type="checkbox" value="virsli"> Virsli</label><br>
+            </div>
+            <div class="column">
+                <h3>Zöldségek</h3>
+                <label><input type="checkbox" value="burgonya"> Burgonya</label><br>
+                <label><input type="checkbox" value="sárgarépa"> Sárgarépa</label><br>
+                <label><input type="checkbox" value="vöröshagyma"> Vöröshagyma</label><br>
+                <label><input type="checkbox" value="fokhagyma"> Fokhagyma</label><br>
+                <label><input type="checkbox" value="lilahagyma"> Lilahagyma</label><br>
+                <label><input type="checkbox" value="snidling"> Snidling</label><br>
+                <label><input type="checkbox" value="paradicsom"> Paradicsom</label><br>
+                <label><input type="checkbox" value="uborka"> Uborka</label><br>
+                <label><input type="checkbox" value="paprika"> Paprika</label><br>
+                <label><input type="checkbox" value="cukkini"> Cukkini</label><br>
+                <label><input type="checkbox" value="padlizsán"> Padlizsán</label><br>
+                <label><input type="checkbox" value="zöldborsó"> Zöldborsó</label><br>
+                <label><input type="checkbox" value="brokkoli"> Brokkoli</label><br>
+            </div>
+            <div class="column">
+                <h3>Gyümölcsök</h3>
+                <label><input type="checkbox" value="alma"> Alma</label><br>
+                <label><input type="checkbox" value="banán"> Banán</label><br>
+                <label><input type="checkbox" value="eper"> Eper</label><br>
+                <label><input type="checkbox" value="szőlő"> Szőlő</label><br>
+                <label><input type="checkbox" value="narancs"> Narancs</label><br>
+                <label><input type="checkbox" value="citrom"> Citrom</label><br>
+                <label><input type="checkbox" value="málna"> Málna</label><br>
+                <label><input type="checkbox" value="barack"> Barack</label><br>
+                <label><input type="checkbox" value="meggy"> Meggy</label><br>
+                <label><input type="checkbox" value="körte"> Körte</label><br>
+                <label><input type="checkbox" value="áfonya"> Áfonya</label><br>
+            </div>
+            <div class="column">
+                <h3>Fűszerek</h3>
+                <label><input type="checkbox" value="bors"> Bors</label><br>
+                <label><input type="checkbox" value="bazsalikom"> Bazsalikom</label><br>
+                <label><input type="checkbox" value="oregánó"> Oregánó</label><br>
+                <label><input type="checkbox" value="kakukkfű"> Kakukkfű</label><br>
+                <label><input type="checkbox" value="majoránna"> Majoránna</label><br>
+                <label><input type="checkbox" value="petrezselyem"> Petrezselyem</label><br>
+                <label><input type="checkbox" value="kapor"> Kapor</label><br>
+                <label><input type="checkbox" value="rozmaring"> Rozmaring</label><br>
+                <label><input type="checkbox" value="chili"> Chili</label><br>
+                <label><input type="checkbox" value="fahéj"> Fahéj</label><br>
+                <label><input type="checkbox" value="rumaroma"> Rumaroma</label><br>
+                <label><input type="checkbox" value="szerecsendió"> Szerecsendió</label><br>
+            </div>
+        </div>
+        <button id="searchMat">Keresés</button>
+        <div id="recipeResults" class="recipe-grid"></div>
     </main>
     <footer>
         <p>Ínycsiklandó receptek, egyszerűen, otthonra!</p>

@@ -13,6 +13,7 @@ import {checkFavoriteStatus, toggleFavorites} from "./pickFav";
 import {auth} from "./firebase-config";
 import {onAuthStateChanged} from "firebase/auth";
 import {checkCartStatus, shoppingList, toggleCartList} from "./makingShoppingList";
+import {selectedIngredients} from "./what_meal";
 
 document.getElementById('headerImg').src = header;
 
@@ -24,6 +25,10 @@ if (document.getElementById('indexPage')) {
     }).catch((error) => {
         console.error("Hiba a legfrisebb receptek betöltésekor: ", error);
     });
+}
+
+if (document.getElementById("what-meal")) {
+    import("../css/what_meal.css");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -56,6 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
         shoppingList();
     }
 
+    if (document.getElementById("what-meal")) {
+        document.getElementById("searchMat").addEventListener("click", async () => {
+            const checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+            const container = document.getElementById("recipeResults");
+
+            await selectedIngredients(checkboxes, container);
+        });
+    }
+
     if (document.getElementById("oneRecipe")) {
         listOneRecipe().then(() => {
             console.log("Recept sikeresen betöltve!");
@@ -63,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const recipeId = document.getElementById("recipeId").textContent.trim();
                 const heart = document.getElementById("heart");
                 const cart = document.getElementById("cart");
+                const ratingIcons = document.querySelectorAll(".rating-icon");
 
                 if (user) {
                     checkFavoriteStatus(user, recipeId, heart).then(() => {
@@ -93,6 +108,24 @@ document.addEventListener("DOMContentLoaded", () => {
                                 console.log("Recept sikeresen bevásárló listához adva");
                             }).catch((error) => {
                                 console.error("Hiba történt a bevásárló listához adáskor: " + error);
+                            });
+                        });
+                    }
+
+                    if (ratingIcons) {
+                        ratingIcons.forEach(icon => {
+                            icon.addEventListener("click", () => {
+                                ratingIcons.forEach(i => i.classList.remove("selected"));
+
+                                icon.classList.add("selected");
+
+                                const ratingValue = icon.classList.contains("smile")
+                                    ? "smile"
+                                    : icon.classList.contains("medium")
+                                        ? "medium"
+                                        : "sad";
+
+                                console.log("Kiválasztott értékelés:", ratingValue);
                             });
                         });
                     }
