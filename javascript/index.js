@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const heart = document.getElementById("heart");
                 const cart = document.getElementById("cart");
                 const ratingIcons = document.querySelectorAll(".rating-icon");
+                const finishedBttn = document.getElementById("finishedImgButton");
 
                 if (user) {
                     checkFavoriteStatus(user, recipeId, heart).then(() => {
@@ -91,61 +92,76 @@ document.addEventListener("DOMContentLoaded", () => {
                     }).catch((error) => {
                         console.error("Hiba a kosár betöltésekor: ", error);
                     });
-
-                    if (heart) {
-                        heart.addEventListener("click", () => {
-                            toggleFavorites(user, recipeId, heart).then(() => {
-                                console.log("Recept sikeresen kedvencnek választva!");
-                            }).catch((error) => {
-                                console.error("Hiba történt a kedvencnek választáskor: ", error);
-                            });
-                        });
-                    }
-
-                    if (cart) {
-                        cart.addEventListener("click", () => {
-                            toggleCartList(user, recipeId, cart).then(() => {
-                                console.log("Recept sikeresen bevásárló listához adva");
-                            }).catch((error) => {
-                                console.error("Hiba történt a bevásárló listához adáskor: " + error);
-                            });
-                        });
-                    }
-
-                    if (ratingIcons) {
-                        ratingIcons.forEach(icon => {
-                            icon.addEventListener("click", () => {
-                                ratingIcons.forEach(i => i.classList.remove("selected"));
-
-                                icon.classList.add("selected");
-
-                                const ratingValue = icon.classList.contains("smile")
-                                    ? "smile"
-                                    : icon.classList.contains("medium")
-                                        ? "medium"
-                                        : "sad";
-
-                                console.log("Kiválasztott értékelés:", ratingValue);
-                            });
-                        });
-                    }
-                } else {
-                    console.log("Nincs bejelentkezett felhasználó!");
                 }
+
+                if (heart) {
+                    heart.addEventListener("click", () => {
+                        if (!user) {
+                            alert("Kérlek jelentkezz be!");
+                            document.location.href = `login.html`;
+                        }
+                        toggleFavorites(user, recipeId, heart).then(() => {
+                            console.log("Recept sikeresen kedvencnek választva!");
+                        }).catch((error) => {
+                            console.error("Hiba történt a kedvencnek választáskor: ", error);
+                        });
+                    });
+                }
+
+                if (cart) {
+                    cart.addEventListener("click", () => {
+                        if (!user) {
+                            alert("Kérlek jelentkezz be!");
+                            document.location.href = `login.html`;
+                        }
+                        toggleCartList(user, recipeId, cart).then(() => {
+                            console.log("Recept sikeresen bevásárló listához adva");
+                        }).catch((error) => {
+                            console.error("Hiba történt a bevásárló listához adáskor: " + error);
+                        });
+                    });
+                }
+
+                if (ratingIcons) {
+                    ratingIcons.forEach(icon => {
+                        icon.addEventListener("click", () => {
+                            if (!user) {
+                                alert("Kérlek jelentkezz be!");
+                                document.location.href = `login.html`;
+                            }
+
+                            ratingIcons.forEach(i => i.classList.remove("selected"));
+
+                            icon.classList.add("selected");
+
+                            const ratingValue = icon.classList.contains("smile")
+                                ? "smile"
+                                : icon.classList.contains("medium")
+                                    ? "medium"
+                                    : "sad";
+
+                            console.log("Kiválasztott értékelés:", ratingValue);
+                        });
+                    });
+                }
+
+                finishedBttn.addEventListener("click", () => {
+                    if (!user) {
+                        alert("Kérlek jelentkezz be!");
+                        document.location.href = `login.html`;
+                    }
+
+                    const img = document.getElementById("finishedRecipeImage").files[0];
+                    const recipeId = document.getElementById("recipeId").textContent.trim();
+                    uploadFinishedImages(img, recipeId).then(() => {
+                        console.log("Sikeres elkészült fotó feltöltés!");
+                    }).catch((error) => {
+                        console.error("Hiba az elkészült fotó feltöltésekor: " + error);
+                    });
+                });
             });
         }).catch((error) => {
             console.error("Hiba történt a recept betöltésekor:", error);
-        });
-
-        const finishedBttn = document.getElementById("finishedImgButton");
-        finishedBttn.addEventListener("click", () => {
-            const img = document.getElementById("finishedRecipeImage").files[0];
-            const recipeId = document.getElementById("recipeId").textContent.trim();
-            uploadFinishedImages(img, recipeId).then(() => {
-                console.log("Sikeres elkészült fotó feltöltés!");
-            }).catch((error) => {
-                console.error("Hiba az elkészült fotó feltöltésekor: " + error);
-            });
         });
     }
 
