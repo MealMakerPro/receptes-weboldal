@@ -92,3 +92,49 @@ export async function uploadFinishedImages(finishedImage, recipeId) {
         console.error("Hiba az elkészült étel fotó feltöltésénél: " + error);
     }
 }
+
+export async function rating(ratingIcons, icon, recipeId) {
+    ratingIcons.forEach(i => i.classList.remove("selected"));
+
+    icon.classList.add("selected");
+
+    const ratingValue = icon.classList.contains("smile")
+        ? "smile"
+        : icon.classList.contains("medium")
+            ? "medium"
+            : "sad";
+
+    console.log("Kiválasztott értékelés:", ratingValue);
+
+    let value = parseInt(icon.getAttribute('data-value'));
+    console.log(value);
+
+    const recipeRef = doc(database, "recipes", recipeId);
+    const recipeSnap = await getDoc(recipeRef);
+
+    if (recipeSnap.exists()) {
+        await updateDoc(recipeRef, {
+            ratings: arrayUnion(value),
+        });
+    }
+}
+
+export async function showAvarage(recipeId) {
+    const recipeRef = doc(database, "recipes", recipeId);
+    const recipeSnap = await getDoc(recipeRef);
+    const ratings = recipeSnap.data().ratings || [];
+    const avgRatingElement = document.getElementById('averageRating');
+    console.log(ratings);
+
+    if (ratings.length === 0) {
+        avgRatingElement.textContent = ` `;
+    } else {
+        const averageRating = calculateAverage(ratings);
+        avgRatingElement.textContent = `${averageRating.toFixed(1)}`;
+    }
+}
+
+function calculateAverage(ratings) {
+    const sum = ratings.reduce((acc, rating) => acc + Number(rating), 0);
+    return sum / ratings.length;
+}

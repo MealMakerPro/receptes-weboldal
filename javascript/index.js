@@ -7,7 +7,7 @@ import indexImg from "../img/indexImg.jpg";
 import { addIngredient, submitRecipe } from "./recipeUpload";
 import { submitDonation } from "./donation";
 import {getLatestRecipes, listingRecipes} from "./listingRecipes";
-import {listOneRecipe, uploadFinishedImages} from "./oneRecipe";
+import {listOneRecipe, rating, showAvarage, uploadFinishedImages} from "./oneRecipe";
 import {createBlogPost, showBlogPosts} from "./blog";
 import {checkFavoriteStatus, toggleFavorites} from "./pickFav";
 import {auth} from "./firebase-config";
@@ -80,6 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const ratingIcons = document.querySelectorAll(".rating-icon");
                 const finishedBttn = document.getElementById("finishedImgButton");
 
+                showAvarage(recipeId).then(() => {
+                    console.log("Sikeres értékelés kiírása!");
+                }).catch((error) => {
+                    console.error("Hiba az értékelés kiírásakor: ", error);
+                });
+
                 if (user) {
                     checkFavoriteStatus(user, recipeId, heart).then(() => {
                         console.log("Sikeres kedvencbetöltés!");
@@ -129,18 +135,11 @@ document.addEventListener("DOMContentLoaded", () => {
                                 alert("Kérlek jelentkezz be!");
                                 document.location.href = `login.html`;
                             }
-
-                            ratingIcons.forEach(i => i.classList.remove("selected"));
-
-                            icon.classList.add("selected");
-
-                            const ratingValue = icon.classList.contains("smile")
-                                ? "smile"
-                                : icon.classList.contains("medium")
-                                    ? "medium"
-                                    : "sad";
-
-                            console.log("Kiválasztott értékelés:", ratingValue);
+                            rating(ratingIcons, icon, recipeId).then(() => {
+                                console.log("Sikeres értékelés!");
+                            }).catch((error) => {
+                                console.error("Hiba történt értékeléskor: " + error);
+                            });
                         });
                     });
                 }

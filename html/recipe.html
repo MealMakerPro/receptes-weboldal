@@ -34,10 +34,11 @@
         <p><span id="cookingTime"></span></p>
         <span style="display: none" id="recipeId"></span>
         <button id="saveButton" style="display:none">Mentés</button>
-        <h3>Értékelés:</h3><i class="fa fa-smile-o rating-icon smile" id="smile-icon"></i>
-        <i class="fa fa-meh-o rating-icon medium" id="medium-icon"></i>
-        <i class="fa fa-frown-o rating-icon sad" id="sad-icon"></i>
-        <br><br><h4>Oszd meg az elkészített recepted fotóját!</h4>
+        <h3>Értékelés:</h3><i class="fa fa-smile-o rating-icon smile" id="smile-icon" data-value="5"></i>
+        <i class="fa fa-meh-o rating-icon medium" id="medium-icon" data-value="3"></i>
+        <i class="fa fa-frown-o rating-icon sad" id="sad-icon" data-value="1"></i>
+        <p>5.0/<span id="averageRating"></span></p>
+        <br><h4>Oszd meg az elkészített recepted fotóját!</h4>
         <input type="file" id="finishedRecipeImage" name="finishedRecipeImage" required><button type="submit" id="finishedImgButton">Kép feltöltése</button>
         <p>Elkészített receptek:</p>
         <div class="photo-grid" id="user-photo-gallery"></div>
