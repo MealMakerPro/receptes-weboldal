@@ -1,6 +1,6 @@
 import "../css/blog.css";
 import { auth, database } from "./firebase-config";
-import {collection, doc, getDoc, getDocs, setDoc, Timestamp} from "firebase/firestore";
+import {collection, deleteDoc, doc, getDoc, getDocs, setDoc, Timestamp} from "firebase/firestore";
 
 export async function createBlogPost(postName, postBody) {
     try {
@@ -34,6 +34,7 @@ export async function showBlogPosts() {
     const querySnapshot = await getDocs(collection(database, "posts"));
     const blogContainer = document.getElementById("blog-container");
     blogContainer.innerHTML = "";
+    const user = auth.currentUser;
 
     querySnapshot.forEach((posts) => {
         const post = posts.data();
@@ -46,14 +47,40 @@ export async function showBlogPosts() {
             minute: "2-digit"
         });
 
-        const postBox = document.createElement("div");
-        postBox.classList.add("post-box");
-        postBox.innerHTML = `
+        if (user.email === "admin@admin.com") {
+            const postBox = document.createElement("div");
+            postBox.classList.add("post-box");
+            postBox.innerHTML = `
+            <span><i class="fa fa-trash delete-button" data-id="${post.postName}"></i></span>
             <h3>${post.postName}</h3><br>
             <p>${post.postBody}</p><br>
             <p><strong>Készítette:</strong> ${post.creatorName}<span class="tab"></span><strong>Létrehozva:</strong> ${formattedDate}</p>
         `;
-        blogContainer.appendChild(postBox);
-    });
+            blogContainer.appendChild(postBox);
+            console.log("delete gomb hozzáadva");
 
+            document.getElementById("blog").addEventListener("click", async (event) => {
+                const deleteButton = event.target.closest(".delete-button");
+                if (deleteButton) {
+                    const postId = deleteButton.getAttribute("data-id");
+                    try {
+                        const blogRef = doc(database, "posts", postId.toLowerCase().replace(/\s+/g, "_"));
+                        await deleteDoc(blogRef);
+                        event.target.closest("div").remove();
+                    } catch (error) {
+                        console.error("Hiba történt a blogbejegyzés törlése során:", error);
+                    }
+                }
+            });
+        } else {
+            const postBox = document.createElement("div");
+            postBox.classList.add("post-box");
+            postBox.innerHTML = `
+            <h3>${post.postName}</h3><br>
+            <p>${post.postBody}</p><br>
+            <p><strong>Készítette:</strong> ${post.creatorName}<span class="tab"></span><strong>Létrehozva:</strong> ${formattedDate}</p>
+        `;
+            blogContainer.appendChild(postBox);
+        }
+    });
 }
