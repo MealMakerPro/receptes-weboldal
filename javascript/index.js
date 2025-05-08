@@ -1,6 +1,6 @@
 import { handleRegistration } from "./registration";
 import { handleLogIn, updateMenu } from "./login";
-import {listMyRecipes, loadUserProfile} from "./profile";
+import {listMyRecipes, listUsers, loadUserProfile} from "./profile";
 import "../css/all_pages.css";
 import header from "../img/name.png";
 import indexImg from "../img/indexImg.jpg";
@@ -41,6 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Receptjeim sikeres betöltése.");
         }).catch((error) => {
             console.error("Hiba történt a receptjeim betöltésekor: ", error);
+        });
+        listUsers().then(() => {
+            console.log("Felhasználók sikeres betöltése.");
+        }).catch((error) => {
+            console.error("Hiba történt a felhasználók betöltésekor: ", error);
         });
     }
 

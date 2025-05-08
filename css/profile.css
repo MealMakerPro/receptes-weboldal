@@ -33,14 +33,14 @@ li {
     padding: 10px;
 }
 
-.edit-button, .eye-button, .delete-button {
+.edit-button, .eye-button, .delete-button, .delete-button-users {
     cursor: pointer;
     color: #555;
     margin-left: 10px;
     transition: color 0.2s ease-in-out;
 }
 
-.edit-button:hover, .eye-button:hover, .delete-button:hover {
+.edit-button:hover, .eye-button:hover, .delete-button:hover, .delete-button-users:hover {
     color: #007bff;
 }
 

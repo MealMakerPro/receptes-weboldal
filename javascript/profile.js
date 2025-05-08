@@ -109,3 +109,40 @@ function recipeList(recipe, myRecipes) {
         }
     });
 }
+
+export async function listUsers() {
+    const userSnapshot = await getDocs(collection(database, "users"));
+    const authUser = auth.currentUser;
+    const users = document.getElementById("myUsers");
+    users.innerHTML = "";
+
+    if (authUser.email === "admin@admin.com") {
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>Regisztrált felhasználók:</strong>`;
+        users.appendChild(p);
+        userSnapshot.forEach((docFor) => {
+            const user = docFor.data();
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <span>${user.email}</span>
+                <i class="fa fa-trash delete-button-users" data-id="${user.uid}"></i>
+            `;
+            users.appendChild(li);
+        });
+
+        document.getElementById("profilePage").addEventListener("click", async (event) => {
+            const deleteButton = event.target.closest(".delete-button-users");
+
+            if (deleteButton) {
+                const userId = deleteButton.getAttribute("data-id");
+                try {
+                    const userRef = doc(database, "users", userId);
+                    await deleteDoc(userRef);
+                    event.target.closest("li").remove();
+                } catch (error) {
+                    console.error("Hiba történt a felhasználó törlése során:", error);
+                }
+            }
+        });
+    }
+}
