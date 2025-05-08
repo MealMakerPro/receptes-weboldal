@@ -67,39 +67,45 @@ export async function listMyRecipes() {
 
     recipeSnapshot.forEach((docFor) => {
         const recipe = docFor.data();
-        if (recipe.userEmail === user.email ) {
-            const li = document.createElement("li");
-            li.innerHTML = `
+        if (user.email === "admin@admin.com") {
+            recipeList(recipe, myRecipes);
+        } else if (recipe.userEmail === user.email ) {
+            recipeList(recipe, myRecipes);
+        } else {
+            myRecipes.innerHTML = "<li>Nincsenek receptjeid.</li>";
+        }
+    });
+}
+
+function recipeList(recipe, myRecipes) {
+    const li = document.createElement("li");
+    li.innerHTML = `
                 <span>${recipe.recipeName}</span>
                 <i class="fa fa-eye eye-button" data-id="${recipe.recipeName}"></i>
                 <i class="fa fa-pencil edit-button" data-id="${recipe.recipeName}"></i>
                 <i class="fa fa-trash delete-button" data-id="${recipe.recipeId}"></i>
             `;
-            myRecipes.appendChild(li);
+    myRecipes.appendChild(li);
 
-            document.getElementById("profilePage").addEventListener("click", async (event) => {
-                const eyeButton = event.target.closest(".eye-button");
-                const editButton = event.target.closest(".edit-button");
-                const deleteButton = event.target.closest(".delete-button");
-                if (eyeButton) {
-                    const recipeName = eyeButton.getAttribute("data-id");
-                    window.location.href = `/recipe.html?nev=${recipeName}`;
-                } else if (deleteButton) {
-                    const recipeId = deleteButton.getAttribute("data-id");
-                    try {
-                        const recipeRef = doc(database, "recipes", recipeId);
-                        await deleteDoc(recipeRef);
-                        event.target.closest("li").remove();
-                    } catch (error) {
-                        console.error("Hiba történt a törlés során:", error);
-                    }
-                } else if (editButton) {
-                    const recipeName = editButton.getAttribute("data-id");
-                    window.location.href = `recipe.html?edit=true&nev=${recipeName}`;
-                }
-            });
-        } else {
-            myRecipes.innerHTML = "<li>Nincsenek receptjeid.</li>";
+    document.getElementById("profilePage").addEventListener("click", async (event) => {
+        const eyeButton = event.target.closest(".eye-button");
+        const editButton = event.target.closest(".edit-button");
+        const deleteButton = event.target.closest(".delete-button");
+        if (eyeButton) {
+            const recipeName = eyeButton.getAttribute("data-id");
+            window.location.href = `/recipe.html?nev=${recipeName}`;
+        } else if (deleteButton) {
+            const recipeId = deleteButton.getAttribute("data-id");
+            try {
+                const recipeRef = doc(database, "recipes", recipeId);
+                await deleteDoc(recipeRef);
+                event.target.closest("li").remove();
+            } catch (error) {
+                console.error("Hiba történt a törlés során:", error);
+            }
+        } else if (editButton) {
+            const recipeName = editButton.getAttribute("data-id");
+            window.location.href = `recipe.html?edit=true&nev=${recipeName}`;
         }
     });
 }

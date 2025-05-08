@@ -51,7 +51,7 @@ export async function showBlogPosts() {
             const postBox = document.createElement("div");
             postBox.classList.add("post-box");
             postBox.innerHTML = `
-            <span><i class="fa fa-trash delete-button" data-id="${post.postName}"></i></span>
+            <span><i class="fa fa-trash delete-button-blog" data-id="${post.postName}"></i></span>
             <h3>${post.postName}</h3><br>
             <p>${post.postBody}</p><br>
             <p><strong>Készítette:</strong> ${post.creatorName}<span class="tab"></span><strong>Létrehozva:</strong> ${formattedDate}</p>
@@ -60,7 +60,7 @@ export async function showBlogPosts() {
             console.log("delete gomb hozzáadva");
 
             document.getElementById("blog").addEventListener("click", async (event) => {
-                const deleteButton = event.target.closest(".delete-button");
+                const deleteButton = event.target.closest(".delete-button-blog");
                 if (deleteButton) {
                     const postId = deleteButton.getAttribute("data-id");
                     try {
