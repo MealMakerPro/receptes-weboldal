@@ -1,0 +1,31 @@
+#eventUploadForm {
+    margin: 30px;
+    text-align: center;
+}
+
+#event-name {
+    font-family: Century Gothic, serif;
+    padding: 10px;
+}
+
+#event-date {
+    font-family: Century Gothic, serif;
+    padding: 10px;
+}
+
+#event-place {
+    font-family: Century Gothic, serif;
+    padding: 10px;
+}
+
+#event-text {
+    font-family: Century Gothic, serif;
+    padding: 10px;
+}
+
+#eventUpButton {
+    padding: 0 20px;
+    background-color: white;
+    border-radius: 10px;
+    font-family: Century Gothic, serif;
+}

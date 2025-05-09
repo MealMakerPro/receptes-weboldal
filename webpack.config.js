@@ -73,6 +73,16 @@ module.exports = {
             filename: 'recipe.html',
             favicon: "./img/logo.PNG",
         }),
+        new htmlWebpackPlugin({
+            template: './html/events.html',
+            filename: 'events.html',
+            favicon: "./img/logo.PNG",
+        }),
+        new htmlWebpackPlugin({
+            template: './html/eventUpload.html',
+            filename: 'eventUpload.html',
+            favicon: "./img/logo.PNG",
+        }),
     ],
     devServer: {
         static: {

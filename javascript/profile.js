@@ -49,6 +49,7 @@ export function loadUserProfile() {
             const donationSnap = await getDoc(donationRef);
 
             document.getElementById("donationText").style.display = "block";
+            document.getElementById("eventUpload").style.display = "block";
 
             if (donationSnap.exists()) {
                 const donationData = donationSnap.data();

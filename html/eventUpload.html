@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eseményfeltöltés</title>
+</head>
+<body>
+<header>
+    <img id="headerImg" src="" alt="headerImg">
+    <nav>
+        <a id="menu-home" href="index.html">Kezdőlap</a>
+        <a id="menu-recipes" href="recipes.html">Receptek</a>
+        <a id="menu-whatmeal" style="display: none" href="what_meal.html">Mit főzzek?</a>
+        <a id="menu-shoppinglist" style="display: none" href="shopping_list.html">Bevásárlólista</a>
+        <a id="menu-blog" style="display: none" href="blog.html">Blog</a>
+        <a id="menu-events" style="display: none" href="events.html">Események</a>
+        <a id="menu-login" href="login.html">Bejelentkezés</a>
+        <a id="menu-registration" href="registration.html">Regisztráció</a>
+        <a id="menu-profile" style="display: none" href="profile.html">Profil</a>
+        <a id="menu-logout" style="display: none" href="#">Kijelentkezés</a>
+    </nav>
+</header>
+<main id="eventUpload">
+    <h1>Eseményfeltöltés</h1>
+    <hr>
+    <form id="eventUploadForm">
+        <input type="text" id="event-name" placeholder="Esemény neve"><br>
+        <input type="date" id="event-date" placeholder="Esemény dátuma"><br>
+        <input type="text" id="event-place" placeholder="Helyszín"><br>
+        <textarea id="event-text" rows="5" placeholder="Esemény leírása"></textarea><br>
+        <button type="submit" id="eventUpButton">Feltöltés</button>
+    </form>
+</main>
+<footer>
+    <p>Ínycsiklandó receptek, egyszerűen, otthonra!</p>
+</footer>
+</body>
+</html>

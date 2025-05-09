@@ -14,6 +14,8 @@ import {auth} from "./firebase-config";
 import {onAuthStateChanged} from "firebase/auth";
 import {checkCartStatus, shoppingList, toggleCartList} from "./makingShoppingList";
 import {selectedIngredients} from "./what_meal";
+import {uploadEvents} from "./eventUpload";
+import {listEvents} from "./events";
 
 document.getElementById('headerImg').src = header;
 
@@ -34,6 +36,7 @@ if (document.getElementById("what-meal")) {
 document.addEventListener("DOMContentLoaded", () => {
     registration();
     login();
+    eventUp();
 
     if (document.body.id === "profilePage") {
         loadUserProfile();
@@ -57,6 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Blogbejegyzések sikeresen betöltve!");
         }).catch((error) => {
             console.error("Hiba történt a blogbejegyzések betöltésekor: ", error);
+        });
+    }
+
+    if (document.getElementById("events")) {
+        listEvents().then(() => {
+            console.log("Események sikeresen betöltve!");
+        }).catch((error) => {
+            console.error("Hiba történt az események betöltésekor: ", error);
         });
     }
 
@@ -196,6 +207,25 @@ function searchAndListRecipe(form) {
             alert("Írj be valamit a keresőbe!");
         }
     });
+}
+
+function eventUp() {
+    const form = document.getElementById("eventUploadForm");
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const name = document.getElementById("event-name").value;
+            const date = document.getElementById("event-date").value;
+            const place = document.getElementById("event-place").value;
+            const text = document.getElementById("event-text").value;
+
+            uploadEvents(name, date, place, text).then(() => {
+                console.log("Esemény sikeresen mentve");
+            }).catch((error) => {
+                console.error("Hiba történt az esemény mentésekor: " + error);
+            });
+        });
+    }
 }
 
 function registration() {

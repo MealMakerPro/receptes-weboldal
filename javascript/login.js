@@ -23,6 +23,7 @@ export function updateMenu(isLoggedIn) {
     const menuWhatmeal = document.getElementById("menu-whatmeal");
     const menuShoppinglist = document.getElementById("menu-shoppinglist");
     const menuBlog = document.getElementById("menu-blog");
+    const menuEvents = document.getElementById("menu-events");
     const menuLogin = document.getElementById("menu-login");
     const menuRegistration = document.getElementById("menu-registration");
     const menuProfile = document.getElementById("menu-profile");
@@ -32,6 +33,7 @@ export function updateMenu(isLoggedIn) {
         menuWhatmeal.style.display = "inline-block";
         menuShoppinglist.style.display = "inline-block";
         menuBlog.style.display = "inline-block";
+        menuEvents.style.display = "inline-block";
         menuProfile.style.display = "inline-block";
         menuLogout.style.display = "inline-block";
         menuLogin.style.display = "none";
@@ -40,6 +42,7 @@ export function updateMenu(isLoggedIn) {
         menuWhatmeal.style.display = "none";
         menuShoppinglist.style.display = "none";
         menuBlog.style.display = "none";
+        menuEvents.style.display = "none";
         menuProfile.style.display = "none";
         menuLogout.style.display = "none";
         menuLogin.style.display = "inline-block";
