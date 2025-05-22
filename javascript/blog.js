@@ -22,7 +22,9 @@ export async function createBlogPost(postName, postBody) {
             await setDoc(blogRef, postData);
             console.log("Blogbejegyzés sikeresen létrehozva!");
             alert("Blogbejegyzés sikeres mentése.");
-            document.getElementById("blogPostForm").reset();
+            setTimeout(() => {
+                location.reload();
+            }, 500);
         }
     } catch (error) {
         console.error("Hiba a bejegyzés létrehozásánál: ", error);

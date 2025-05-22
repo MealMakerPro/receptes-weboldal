@@ -66,16 +66,20 @@ export async function listMyRecipes() {
     const myRecipes = document.getElementById("myRecipes");
     myRecipes.innerHTML = "";
 
+    const userRecipes = [];
+
     recipeSnapshot.forEach((docFor) => {
         const recipe = docFor.data();
-        if (user.email === "admin@admin.com") {
-            recipeList(recipe, myRecipes);
-        } else if (recipe.userEmail === user.email ) {
-            recipeList(recipe, myRecipes);
-        } else {
-            myRecipes.innerHTML = "<li>Nincsenek receptjeid.</li>";
+        if (user.email === "admin@admin.com" || recipe.userEmail === user.email) {
+            userRecipes.push(recipe);
         }
     });
+
+    if (userRecipes.length === 0) {
+        myRecipes.innerHTML = "<li>Nincsenek receptjeid.</li>";
+    } else {
+        userRecipes.forEach((recipe) => recipeList(recipe, myRecipes));
+    }
 }
 
 function recipeList(recipe, myRecipes) {

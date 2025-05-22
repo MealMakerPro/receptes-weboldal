@@ -1,5 +1,6 @@
-import { auth } from './firebase-config';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth, database} from './firebase-config';
+import {signInWithEmailAndPassword, signOut} from "firebase/auth";
+import {doc, getDoc} from "firebase/firestore";
 
 if (window.location.pathname.includes("login")) {
     import("../css/login.css");
@@ -7,11 +8,20 @@ if (window.location.pathname.includes("login")) {
 
 export function handleLogIn(email, password) {
     signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log("Bejelentkezve: " + user.email);
-            localStorage.setItem("isLoggedIn", "true")
-            window.location.href = "/index.html";
+        .then(async (userCredential) => {
+            const userDocRef = doc(database, "users", auth.currentUser.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (!userDocSnap.exists()) {
+                alert("A fiókodhoz tartozó adatok törlésre kerültek.");
+                await signOut(auth);
+                window.location.href = "/login.html";
+            } else {
+                const user = userCredential.user;
+                console.log("Bejelentkezve: " + user.email);
+                localStorage.setItem("isLoggedIn", "true")
+                window.location.href = "/index.html";
+            }
         })
         .catch((error) => {
             console.error("Hiba a bejelentkezéskor: ", error);

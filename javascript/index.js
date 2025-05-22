@@ -10,12 +10,13 @@ import {getLatestRecipes, listingRecipes} from "./listingRecipes";
 import {listOneRecipe, rating, showAvarage, uploadFinishedImages} from "./oneRecipe";
 import {createBlogPost, showBlogPosts} from "./blog";
 import {checkFavoriteStatus, toggleFavorites} from "./pickFav";
-import {auth} from "./firebase-config";
-import {onAuthStateChanged} from "firebase/auth";
+import {auth, database} from "./firebase-config";
+import {onAuthStateChanged, signOut} from "firebase/auth";
 import {checkCartStatus, shoppingList, toggleCartList} from "./makingShoppingList";
 import {selectedIngredients} from "./what_meal";
 import {uploadEvents} from "./eventUpload";
 import {listEvents} from "./events";
+import {doc, getDoc, updateDoc} from "firebase/firestore";
 
 document.getElementById('headerImg').src = header;
 
@@ -95,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const cart = document.getElementById("cart");
                 const ratingIcons = document.querySelectorAll(".rating-icon");
                 const finishedBttn = document.getElementById("finishedImgButton");
+                const saveBttn = document.getElementById("saveButton");
 
                 showAvarage(recipeId).then(() => {
                     console.log("Sikeres értékelés kiírása!");
@@ -153,12 +155,34 @@ document.addEventListener("DOMContentLoaded", () => {
                             }
                             rating(ratingIcons, icon, recipeId).then(() => {
                                 console.log("Sikeres értékelés!");
+
                             }).catch((error) => {
                                 console.error("Hiba történt értékeléskor: " + error);
                             });
                         });
                     });
                 }
+
+                saveBttn.addEventListener("click", async () => {
+                    const recipeName = document.getElementById("recipeName").textContent.trim();
+                    const instructions = document.getElementById("instructions").textContent.trim();
+                    const cookingTime = document.getElementById("cookingTime").textContent.trim();
+
+                    const recipeRef = doc(database, "recipes", recipeId);
+
+                    try {
+                        await updateDoc(recipeRef, {
+                            recipeName: recipeName,
+                            instructions: instructions,
+                            cookingTime: cookingTime,
+                        });
+                        alert("Recept sikeresen frissítve!");
+                        document.location.href = `profile.html`;
+                    } catch (error) {
+                        console.error("Hiba a mentéskor:", error);
+                        alert("Hiba történt a mentés során.");
+                    }
+                });
 
                 finishedBttn.addEventListener("click", () => {
                     if (!user) {
@@ -170,6 +194,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     const recipeId = document.getElementById("recipeId").textContent.trim();
                     uploadFinishedImages(img, recipeId).then(() => {
                         console.log("Sikeres elkészült fotó feltöltés!");
+                        alert("Sikeres képfeltöltés!");
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
                     }).catch((error) => {
                         console.error("Hiba az elkészült fotó feltöltésekor: " + error);
                     });
@@ -246,7 +274,7 @@ function registration() {
 function login() {
     const form = document.getElementById("loginForm");
     if (form) {
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;

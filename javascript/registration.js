@@ -20,9 +20,7 @@ export function handleRegistration(name, email, username, password) {
             await setDoc(doc(database, "users", user.uid), userData);
             console.log("Felhasználó regisztrálva: " + user);
             alert("Sikeres regisztráció!");
-            setTimeout(() => {
-                location.reload();
-            }, 500);
+            document.location.href = `login.html`;
         })
         .catch((error) => {
             console.error("Regisztrációs hiba: ", error);

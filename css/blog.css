@@ -1,12 +1,19 @@
+main {
+    font-family: Century Gothic, serif;
+}
+
 #postName {
+    font-family: Century Gothic, serif;
     padding-right: 200px;
     margin-bottom: 15px;
 }
 
 #postBody {
-    padding-right: 200px;
-    padding-bottom: 100px;
-    margin-bottom: 15px;
+    font-family: Century Gothic, serif;
+    width: 360px;
+    height: 100px;
+    overflow: auto;
+    resize: vertical;
 }
 
 #postButton {
