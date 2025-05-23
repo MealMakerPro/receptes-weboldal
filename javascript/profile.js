@@ -105,6 +105,9 @@ function recipeList(recipe, myRecipes) {
                 const recipeRef = doc(database, "recipes", recipeId);
                 await deleteDoc(recipeRef);
                 event.target.closest("li").remove();
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
             } catch (error) {
                 console.error("Hiba történt a törlés során:", error);
             }
